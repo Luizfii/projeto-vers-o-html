@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserir Técnico</title>
+    <style>
+        /* Estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-action {
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .btn-action:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inserir Técnico</h1>
+    <form id="eventoForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="cpf">CPF:</label>
+        <input type="numb" id="cpf" name="cpf" required>
+
+        <label for="data">Data de Nascimento:</label>
+        <input type="date" id="data" name="data" required>
+
+        <label for="pix">Pix:</label>
+        <input type="text" id="pix" name="pix" required>
+        <button type="button" onclick="adicionarTecnico()">Salvar Técnico</button>
+        <button class="button" onclick="window.location.href='HOME.HTML'">Voltar</button>
+    </form>
+    
+
+    <script>
+        document.getElementById('tecnicoForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            const nome = document.getElementById('nome').value;
+            const cpf = document.getElementById('cpf').value;
+            const data = document.getElementById('data').value;
+            const pix = document.getElementById('pix').value;
+            
+            // Exibir os dados do evento no console (ou enviar para um backend)
+            console.log("Técnico Adicionado:");
+            console.log("Nome:", nome);
+            console.log("Cpf:", cpf);
+            console.log("Data:", data);
+            console.log("Pix:", pix);
+
+            // Aqui você pode adicionar lógica para enviar os dados para um servidor ou armazená-los localmente
+
+            alert("Técnico salvo com sucesso!");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserir Evento</title>
+    <style>
+        /* Estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-action {
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .btn-action:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inserir Evento</h1>
+    <form id="eventoForm">
+        <label for="nome">Nome do Evento:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="local">Local do Evento:</label>
+        <input type="text" id="local" name="local" required>
+
+        <label for="data">Data do Evento:</label>
+        <input type="date" id="data" name="data" required>
+
+        <label for="contratante">Contratante:</label>
+        <input type="text" id="contratante" name="contratante" required>
+
+        <label for="tecnicos">Técnicos Responsáveis:</label>
+        <select id="tecnicos" name="tecnicos" multiple required>
+            <option value="tecnico1">Técnico 1</option>
+            <option value="tecnico2">Técnico 2</option>
+            <option value="tecnico3">Técnico 3</option>
+            <!-- Adicione mais técnicos conforme necessário -->
+        </select>
+
+        <label for="equipamentos">Equipamentos:</label>
+        <select id="equipamentos" name="equipamentos" multiple required>
+            <option value="equipamento1">Equipamento 1</option>
+            <option value="equipamento2">Equipamento 2</option>
+            <option value="equipamento3">Equipamento 3</option>
+            <!-- Adicione mais equipamentos conforme necessário -->
+        </select>
+
+        <button type="submit">Salvar Evento</button>
+        <button class="button" onclick="window.location.href='HOME.HTML'">Voltar</button>
+    </form>
+    
+
+
+    <script>
+        document.getElementById('eventoForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            const nome = document.getElementById('nome').value;
+            const local = document.getElementById('local').value;
+            const data = document.getElementById('data').value;
+            const contratante = document.getElementById('contratante').value;
+            const tecnicos = Array.from(document.getElementById('tecnicos').selectedOptions).map(option => option.value);
+            const equipamentos = Array.from(document.getElementById('equipamentos').selectedOptions).map(option => option.value);
+
+            // Exibir os dados do evento no console (ou enviar para um backend)
+            console.log("Evento Adicionado:");
+            console.log("Nome:", nome);
+            console.log("Local:", local);
+            console.log("Data:", data);
+            console.log("Contratante:", contratante);
+            console.log("Técnicos:", tecnicos);
+            console.log("Equipamentos:", equipamentos);
+
+            // Aqui você pode adicionar lógica para enviar os dados para um servidor ou armazená-los localmente
+
+            alert("Evento salvo com sucesso!");
+        });
+    </script>
+</body>
+</html>

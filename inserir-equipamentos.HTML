@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Equipamentos</title>
+    <style>
+        /* Estilos básicos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-action {
+            padding: 5px 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .btn-action:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestão de Equipamentos</h1>
+    <form id="form-equipamento">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" required>
+
+        <label for="dataCompra">Data de Compra:</label>
+        <input type="date" id="dataCompra" name="dataCompra" required>
+
+        <button type="button" onclick="adicionarEquipamento()">Salvar Equipamento</button>
+        <button class="button" onclick="window.location.href='HOME.HTML'">Voltar</button>
+    </form>
+    
+
+    <table id="tabela-equipamentos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Modelo</th>
+                <th>Data de Compra</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-equipamentos-body">
+        </tbody>
+    </table>
+
+    <script>
+        let equipamentos = [];
+        let contadorId = 1;
+
+        function adicionarEquipamento() {
+            const nome = document.getElementById("nome").value;
+            const modelo = document.getElementById("modelo").value;
+            const dataCompra = document.getElementById("dataCompra").value;
+
+            if (nome && modelo && dataCompra) {
+                const equipamento = {
+                    id: contadorId++,
+                    nome: nome,
+                    modelo: modelo,
+                    dataCompra: dataCompra
+                };
+
+                equipamentos.push(equipamento);
+                atualizarTabela();
+                document.getElementById("form-equipamento").reset();
+            } else {
+                alert("Por favor, preencha todos os campos.");
+            }
+        }
+
+        function atualizarTabela() {
+            const tabelaBody = document.getElementById("tabela-equipamentos-body");
+            tabelaBody.innerHTML = "";
+
+            equipamentos.forEach(equipamento => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${equipamento.id}</td>
+                    <td>${equipamento.nome}</td>
+                    <td>${equipamento.modelo}</td>
+                    <td>${equipamento.dataCompra}</td>
+                    <td>
+                        <button class="btn-action" onclick="editarEquipamento(${equipamento.id})">Editar</button>
+                        <button class="btn-action" onclick="excluirEquipamento(${equipamento.id})">Excluir</button>
+                    </td>
+                `;
+
+                tabelaBody.appendChild(row);
+            });
+        }
+
+        function editarEquipamento(id) {
+            const equipamento = equipamentos.find(eq => eq.id === id);
+
+            if (equipamento) {
+                document.getElementById("nome").value = equipamento.nome;
+                document.getElementById("modelo").value = equipamento.modelo;
+                document.getElementById("dataCompra").value = equipamento.dataCompra;
+
+                excluirEquipamento(id); // Remove o equipamento para re-adicionar com alterações
+            }
+        }
+
+        function excluirEquipamento(id) {
+            equipamentos = equipamentos.filter(eq => eq.id !== id);
+            atualizarTabela();
+        }
+    </script>
+</body>
+</html>

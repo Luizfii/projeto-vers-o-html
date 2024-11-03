@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Gerenciamento de Equipamentos</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos da página */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .result-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-item {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciamento de Equipamentos</h1>
+
+        <!-- Campo de busca -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Buscar equipamento ou evento">
+        </div>
+
+        <!-- Botões principais -->
+        <button class="button" onclick="inserirEquipamento()">Inserir Equipamento</button>
+        <button class="button" onclick="inserirEvento()">Inserir Evento</button>
+        <button class="button" onclick="inserirTecnico()">Inserir Tecnico</button>
+        <button class="button" onclick="buscar()">Buscar</button>
+
+        <!-- Container de resultados da busca -->
+        <div id="resultContainer" class="result-container"></div>
+    </div>
+
+    <script>
+        // Dados de exemplo
+        const equipamentos = ["Microfone", "Mesa de Som", "Amplificador"];
+        const eventos = ["Show de Rock", "Palestra Empresarial", "Festival de Jazz"];
+
+        // Função para redirecionar para a página de inserir equipamento
+        function inserirEquipamento() {
+            window.location.href = "inserir-equipamentos.html";
+        }
+
+        function inserirEvento() {
+            window.location.href = "inserir_evento.html";
+        }
+        function inserirTecnico() {
+            window.location.href = "inserir_tecnico.html";
+        }
+
+        // Função de busca
+        function buscar() {
+            const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+            const resultContainer = document.getElementById("resultContainer");
+            resultContainer.innerHTML = ""; // Limpa os resultados anteriores
+
+            if (searchQuery.trim() === "") {
+                alert("Digite algo para buscar.");
+                return;
+            }
+
+            // Filtra equipamentos e eventos
+            const resultadosEquipamentos = equipamentos.filter(equipamento => equipamento.toLowerCase().includes(searchQuery));
+            const resultadosEventos = eventos.filter(evento => evento.toLowerCase().includes(searchQuery));
+
+            // Exibe os resultados
+            if (resultadosEquipamentos.length > 0 || resultadosEventos.length > 0) {
+                resultadosEquipamentos.forEach(equipamento => {
+                    const div = document.createElement("div");
+                    div.className = "result-item";
+                    div.textContent = "Equipamento: " + equipamento;
+                    resultContainer.appendChild(div);
+                });
+
+                resultadosEventos.forEach(evento => {
+                    const div = document.createElement("div");
+                    div.className = "result-item";
+                    div.textContent = "Evento: " + evento;
+                    resultContainer.appendChild(div);
+                });
+            } else {
+                resultContainer.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
