@@ -101,12 +101,12 @@
 
     <script>
         // Dados de exemplo
-        const equipamentos = ["Microfone", "Mesa de Som", "Amplificador"];
+        const equipamento = ["Microfone", "Mesa de Som", "Amplificador"];
         const eventos = ["Show de Rock", "Palestra Empresarial", "Festival de Jazz"];
 
         // Função para redirecionar para a página de inserir equipamento
         function inserirEquipamento() {
-            window.location.href = "inserir-equipamentos.html";
+            window.location.href = "inserir-equipamento.html";
         }
 
         function inserirEvento() {
@@ -128,12 +128,12 @@
             }
 
             // Filtra equipamentos e eventos
-            const resultadosEquipamentos = equipamentos.filter(equipamento => equipamento.toLowerCase().includes(searchQuery));
+            const resultadosEquipamento = equipamento.filter(equipamento => equipamento.toLowerCase().includes(searchQuery));
             const resultadosEventos = eventos.filter(evento => evento.toLowerCase().includes(searchQuery));
 
             // Exibe os resultados
-            if (resultadosEquipamentos.length > 0 || resultadosEventos.length > 0) {
-                resultadosEquipamentos.forEach(equipamento => {
+            if (resultadosEquipamento.length > 0 || resultadosEventos.length > 0) {
+                resultadosEquipamento.forEach(equipamento => {
                     const div = document.createElement("div");
                     div.className = "result-item";
                     div.textContent = "Equipamento: " + equipamento;
