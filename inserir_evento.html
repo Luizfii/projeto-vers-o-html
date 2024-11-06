@@ -81,6 +81,13 @@
             background-color: #007bff;
             color: #fff;
         }
+        p {
+            
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            line-height: 20px;
+            padding: 5px 10px;
+            border: 15px;
+        }
 
         .btn-action {
             padding: 5px 10px;
@@ -113,20 +120,49 @@
         <input type="text" id="contratante" name="contratante" required>
 
         <label for="tecnicos">Técnicos Responsáveis:</label>
-        <select id="tecnicos" name="tecnicos" multiple required>
-            <option value="tecnico1">Técnico 1</option>
-            <option value="tecnico2">Técnico 2</option>
-            <option value="tecnico3">Técnico 3</option>
+        <p>
+            <label><input id="tecnicos" name="tecnicos" type="checkbox"value="tecnico1">    Técnico 1</label>
+        </p>
+        <p>
+            <label><input id="tecnicos" name="tecnicos"type="checkbox"value="tecnico2">    Técnico 2</label>
+        </p>
+        <p>
+            <label><input id="tecnicos" name="tecnicos"type="checkbox"value="tecnico3">    Técnico 3</label>
+        </p>
             <!-- Adicione mais técnicos conforme necessário -->
-        </select>
+      
 
         <label for="equipamentos">Equipamentos:</label>
-        <select id="equipamentos" name="equipamentos" multiple required>
-            <option value="equipamento1">Equipamento 1</option>
-            <option value="equipamento2">Equipamento 2</option>
-            <option value="equipamento3">Equipamento 3</option>
+        
+        <p>
+            <label><input type="checkbox"value="equipamento1">    Equipamento 1</label>
+        </p>
+        <p>
+            <label><input type="checkbox"value="equipamento2">    Equipamento 2</label>
+        </p>
+        <p>
+            <label><input type="checkbox"value="equipamento3">    Equipamento 3</label>
+        </p>
+    
+        </label>
             <!-- Adicione mais equipamentos conforme necessário -->
-        </select>
+    
+        
+        <label for="motoristas">Motorista Responsáveis:</label>
+        
+            <p>
+                <label><input type="checkbox"value="motorista1">    Motorista 1</label>
+            </p>
+            <p>
+                <label><input type="checkbox"value="motorista2">    Motorista 2</label>
+            </p>
+            <p>
+                <label><input type="checkbox"value="motorista3">    Motorista 3</label>
+            </p>
+        
+        </label>
+            <!-- Adicione mais motorista conforme necessário -->
+        
 
         <button type="submit">Salvar Evento</button>
         <button class="button" onclick="window.location.href='HOME.HTML'">Voltar</button>
@@ -144,6 +180,8 @@
             const contratante = document.getElementById('contratante').value;
             const tecnicos = Array.from(document.getElementById('tecnicos').selectedOptions).map(option => option.value);
             const equipamentos = Array.from(document.getElementById('equipamentos').selectedOptions).map(option => option.value);
+            const motoristas = Array.from(document.getElementById('motoristas').selectedOptions).map(option => option.value);
+
 
             // Exibir os dados do evento no console (ou enviar para um backend)
             console.log("Evento Adicionado:");
@@ -153,6 +191,7 @@
             console.log("Contratante:", contratante);
             console.log("Técnicos:", tecnicos);
             console.log("Equipamentos:", equipamentos);
+            console.log("Motoristas: "motoristas);
 
             // Aqui você pode adicionar lógica para enviar os dados para um servidor ou armazená-los localmente
 
