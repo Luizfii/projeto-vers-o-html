@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inserir Evento</title>
+    <title>Inserir Motoristas</title>
     <style>
         /* Estilos básicos */
         * {
@@ -44,6 +44,7 @@
 
         input[type="text"],
         input[type="date"],
+        input[type="time"],
         button {
             width: 100%;
             padding: 10px;
@@ -98,78 +99,49 @@
     </style>
 </head>
 <body>
-    <h1>Inserir Evento</h1>
+    <h1>Inserir Técnico</h1>
     <form id="eventoForm">
-        <label for="nome">Nome do Evento:</label>
+        <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required>
 
-        <label for="local">Local do Evento:</label>
-        <input type="text" id="local" name="local" required>
+        <label for="cpf">CPF:</label>
+        <input type="numb" id="cpf" name="cpf" required>
 
-        <label for="data">Data do Evento:</label>
+        <label for="data">Data de Nascimento:</label>
         <input type="date" id="data" name="data" required>
 
-        <label for="contratante">Contratante:</label>
-        <input type="text" id="contratante" name="contratante" required>
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" name="hora" required>
 
-        <label for="tecnicos">Técnicos Responsáveis:</label>
-        <select id="tecnicos" name="tecnicos" multiple required>
-            <option value="tecnico1">Técnico 1</option>
-            <option value="tecnico2">Técnico 2</option>
-            <option value="tecnico3">Técnico 3</option>
-            <!-- Adicione mais técnicos conforme necessário -->
-        </select>
+        <label for="placaCaminhao">Placa do caminhão:</label>
+        <input type="text" id="placaCaminhao" name="placaCaminhao" required>
 
-        <label for="equipamentos">Equipamentos:</label>
-        <select id="equipamentos" name="equipamentos" multiple required>
-            <option value="equipamento1">Equipamento 1</option>
-            <option value="equipamento2">Equipamento 2</option>
-            <option value="equipamento3">Equipamento 3</option>
-            <!-- Adicione mais equipamentos conforme necessário -->
-        </select>
-        
-        <label for="motoristas">Motorista Responsáveis:</label>
-        <select id="motoristas" name="motoristas" multiple required>
-            <option value="motorista1">Motorista 1</option>
-            <option value="motorista2">Motorista 2</option>
-            <option value="motorista3">Motorista 3</option>
-            <!-- Adicione mais motorista conforme necessário -->
-        </select>
-
-        <button type="submit">Salvar Evento</button>
+        <button type="button" onclick="adicionarTecnico()">Salvar Motorista</button>
         <button class="button" onclick="window.location.href='index.html'">Voltar</button>
     </form>
     
 
-
     <script>
-        document.getElementById('eventoForm').addEventListener('submit', function(event) {
+        document.getElementById('motoristaForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Impede o envio do formulário
 
             const nome = document.getElementById('nome').value;
-            const local = document.getElementById('local').value;
+            const cpf = document.getElementById('cpf').value;
             const data = document.getElementById('data').value;
             const hora = document.getElementById('hora').value;
-            const contratante = document.getElementById('contratante').value;
-            const tecnicos = Array.from(document.getElementById('tecnicos').selectedOptions).map(option => option.value);
-            const equipamentos = Array.from(document.getElementById('equipamentos').selectedOptions).map(option => option.value);
-            const motoristas = Array.from(document.getElementById('motoristas').selectedOptions).map(option => option.value);
-
-
+            const placaCaminhão = document.getElementById('placaCaminhao').value;
+            
             // Exibir os dados do evento no console (ou enviar para um backend)
-            console.log("Evento Adicionado:");
-            console.log("Nome: ", nome);
-            console.log("Local: ", local);
-            console.log("Data: ", data);
-            console.log("Hora: ", hora);
-            console.log("Contratante: ", contratante);
-            console.log("Técnicos: ", tecnicos);
-            console.log("Equipamentos: ", equipamentos);
-            console.log("Motoristas: " , motoristas);
+            console.log("motorista Adicionado:");
+            console.log("Nome:", nome);
+            console.log("Cpf:", cpf);
+            console.log("Data:", data);
+            console.log("Hora:", hora);
+            console.log("placa do caminhão: ", placaCaminhao);
 
             // Aqui você pode adicionar lógica para enviar os dados para um servidor ou armazená-los localmente
 
-            alert("Evento salvo com sucesso!");
+            alert("Motorista salvo com sucesso!");
         });
     </script>
 </body>

@@ -100,8 +100,8 @@
 <body>
     <h1>Gestão de Equipamentos</h1>
     <form id="form-equipamento">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" required>
 
         <label for="modelo">Modelo:</label>
         <input type="text" id="modelo" name="modelo" required>
@@ -118,7 +118,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
+                <th>Marca</th>
                 <th>Modelo</th>
                 <th>Data de Compra</th>
                 <th>Ações</th>
@@ -133,14 +133,14 @@
         let contadorId = 1;
 
         function adicionarEquipamento() {
-            const nome = document.getElementById("nome").value;
+            const marca = document.getElementById("marca").value;
             const modelo = document.getElementById("modelo").value;
             const dataCompra = document.getElementById("dataCompra").value;
 
-            if (nome && modelo && dataCompra) {
+            if (marca && modelo && dataCompra) {
                 const equipamento = {
                     id: contadorId++,
-                    nome: nome,
+                    marca: marca,
                     modelo: modelo,
                     dataCompra: dataCompra
                 };
@@ -162,7 +162,7 @@
 
                 row.innerHTML = `
                     <td>${equipamento.id}</td>
-                    <td>${equipamento.nome}</td>
+                    <td>${equipamento.marca}</td>
                     <td>${equipamento.modelo}</td>
                     <td>${equipamento.dataCompra}</td>
                     <td>
@@ -179,7 +179,7 @@
             const equipamento = equipamentos.find(eq => eq.id === id);
 
             if (equipamento) {
-                document.getElementById("nome").value = equipamento.nome;
+                document.getElementById("marca").value = equipamento.marca;
                 document.getElementById("modelo").value = equipamento.modelo;
                 document.getElementById("dataCompra").value = equipamento.dataCompra;
 
