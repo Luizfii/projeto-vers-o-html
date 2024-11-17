@@ -97,6 +97,13 @@
         }
     </style>
 </head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserir Técnico</title>
+</head>
 <body>
     <h1>Inserir Técnico</h1>
     <form id="eventoForm">
@@ -104,38 +111,106 @@
         <input type="text" id="nome" name="nome" required>
 
         <label for="cpf">CPF:</label>
-        <input type="numb" id="cpf" name="cpf" required>
+        <input type="text" id="cpf" name="cpf" required>
 
         <label for="data">Data de Nascimento:</label>
         <input type="date" id="data" name="data" required>
 
         <label for="pix">Pix:</label>
         <input type="text" id="pix" name="pix" required>
+
         <button type="button" onclick="adicionarTecnico()">Salvar Técnico</button>
-        <button class="button" onclick="window.location.href='index.html'">Voltar</button>
+        <button type="button" class="button" onclick="window.location.href='index.html'">Voltar</button>
     </form>
-    
+
+    <!-- Tabela para exibir os técnicos -->
+    <h2>Técnicos Adicionados</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Data de Nascimento</th>
+                <th>Pix</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-tecnicos-body">
+        </tbody>
+    </table>
 
     <script>
-        document.getElementById('tecnicoForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio do formulário
+        let tecnicos = [];
+        let contadorId = 1;
 
-            const nome = document.getElementById('nome').value;
-            const cpf = document.getElementById('cpf').value;
-            const data = document.getElementById('data').value;
-            const pix = document.getElementById('pix').value;
-            
-            // Exibir os dados do evento no console (ou enviar para um backend)
-            console.log("Técnico Adicionado:");
-            console.log("Nome:", nome);
-            console.log("Cpf:", cpf);
-            console.log("Data:", data);
-            console.log("Pix:", pix);
+        // Função para adicionar técnico
+        function adicionarTecnico() {
+            const nome = document.getElementById("nome").value;
+            const cpf = document.getElementById("cpf").value;
+            const dataNascimento = document.getElementById("data").value;
+            const pix = document.getElementById("pix").value;
 
-            // Aqui você pode adicionar lógica para enviar os dados para um servidor ou armazená-los localmente
+            if (nome && cpf && dataNascimento && pix) {
+                const tecnico = {
+                    id: contadorId++,
+                    nome: nome,
+                    cpf: cpf,
+                    dataNascimento: dataNascimento,
+                    pix: pix
+                };
 
-            alert("Técnico salvo com sucesso!");
-        });
+                tecnicos.push(tecnico);
+                atualizarTabela();
+                document.getElementById("eventoForm").reset();
+            } else {
+                alert("Por favor, preencha todos os campos.");
+            }
+        }
+
+        // Função para atualizar a tabela de técnicos
+        function atualizarTabela() {
+            const tabelaBody = document.getElementById("tabela-tecnicos-body");
+            tabelaBody.innerHTML = "";
+
+            tecnicos.forEach(tecnico => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${tecnico.id}</td>
+                    <td>${tecnico.nome}</td>
+                    <td>${tecnico.cpf}</td>
+                    <td>${tecnico.dataNascimento}</td>
+                    <td>${tecnico.pix}</td>
+                    <td>
+                        <button class="btn-action" onclick="editarTecnico(${tecnico.id})">Editar</button>
+                        <button class="btn-action" onclick="excluirTecnico(${tecnico.id})">Excluir</button>
+                    </td>
+                `;
+
+                tabelaBody.appendChild(row);
+            });
+        }
+
+        // Função para editar técnico
+        function editarTecnico(id) {
+            const tecnico = tecnicos.find(t => t.id === id);
+
+            if (tecnico) {
+                document.getElementById("nome").value = tecnico.nome;
+                document.getElementById("cpf").value = tecnico.cpf;
+                document.getElementById("data").value = tecnico.dataNascimento;
+                document.getElementById("pix").value = tecnico.pix;
+
+                excluirTecnico(id); // Remove o técnico para re-adicionar com alterações
+            }
+        }
+
+        // Função para excluir técnico
+        function excluirTecnico(id) {
+            tecnicos = tecnicos.filter(t => t.id !== id);
+            atualizarTabela();
+        }
     </script>
 </body>
 </html>

@@ -1,176 +1,285 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inserir Evento</title>
     <style>
-        /* Estilos básicos */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+      /* Estilos básicos */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: #f5f5f5;
+      }
 
-        h1 {
-            margin-bottom: 20px;
-            color: #333;
-        }
+      h1 {
+        margin-bottom: 20px;
+        color: #333;
+      }
 
-        form {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+      form {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
 
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+      }
 
-        input[type="text"],
-        input[type="date"],
-        button {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 5px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
+      input[type="text"],
+      input[type="date"],
+      button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 5px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
 
-        button {
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+      button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+      button:hover {
+        background-color: #0056b3;
+      }
 
-        table {
-            width: 100%;
-            max-width: 600px;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+      table {
+        width: 100%;
+        max-width: 600px;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
 
-        th {
-            background-color: #007bff;
-            color: #fff;
-        }
+      th {
+        background-color: #007bff;
+        color: #fff;
+      }
 
-        .btn-action {
-            padding: 5px 10px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 0 5px;
-        }
+      .btn-action {
+        padding: 5px 10px;
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 5px;
+      }
 
-        .btn-action:hover {
-            background-color: #ff1a1a;
-        }
+      .btn-action:hover {
+        background-color: #ff1a1a;
+      }
+      /* Estilo da pré-visualização */
+      .previsualizacao-container {
+        margin-top: 30px;
+        padding: 15px;
+        background-color: #f8f9fa; /* Fundo cinza claro */
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .previsualizacao-container h2 {
+        font-size: 20px;
+        color: #343a40;
+        margin-bottom: 15px;
+      }
+
+      #previsualizacao p {
+        font-size: 16px;
+        color: #495057;
+        line-height: 1.5;
+        margin-bottom: 10px;
+      }
     </style>
-</head>
-<body>
-    <h1>Inserir Evento</h1>
-    <form id="eventoForm">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Inserir Evento</h1>
+      <form id="eventoForm">
         <label for="nome">Nome do Evento:</label>
-        <input type="text" id="nome" name="nome" required>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          required
+          oninput="atualizarPrevisualizacao()"
+        />
 
         <label for="local">Local do Evento:</label>
-        <input type="text" id="local" name="local" required>
+        <input
+          type="text"
+          id="local"
+          name="local"
+          required
+          oninput="atualizarPrevisualizacao()"
+        />
 
         <label for="data">Data do Evento:</label>
-        <input type="date" id="data" name="data" required>
+        <input
+          type="date"
+          id="data"
+          name="data"
+          required
+          oninput="atualizarPrevisualizacao()"
+        />
 
         <label for="contratante">Contratante:</label>
-        <input type="text" id="contratante" name="contratante" required>
+        <input
+          type="text"
+          id="contratante"
+          name="contratante"
+          required
+          oninput="atualizarPrevisualizacao()"
+        />
 
         <label for="tecnicos">Técnicos Responsáveis:</label>
-        <select id="tecnicos" name="tecnicos" multiple required>
-            <option value="tecnico1">Técnico 1</option>
-            <option value="tecnico2">Técnico 2</option>
-            <option value="tecnico3">Técnico 3</option>
-            <!-- Adicione mais técnicos conforme necessário -->
+        <select
+          id="tecnicos"
+          name="tecnicos"
+          multiple
+          required
+          onchange="atualizarPrevisualizacao()"
+        >
+          <option value="tecnico1">Técnico 1</option>
+          <option value="tecnico2">Técnico 2</option>
+          <option value="tecnico3">Técnico 3</option>
         </select>
 
         <label for="equipamentos">Equipamentos:</label>
-        <select id="equipamentos" name="equipamentos" multiple required>
-            <option value="equipamento1">Equipamento 1</option>
-            <option value="equipamento2">Equipamento 2</option>
-            <option value="equipamento3">Equipamento 3</option>
-            <!-- Adicione mais equipamentos conforme necessário -->
+        <select
+          id="equipamentos"
+          name="equipamentos"
+          multiple
+          required
+          onchange="atualizarPrevisualizacao()"
+        >
+          <option value="equipamento1">Equipamento 1</option>
+          <option value="equipamento2">Equipamento 2</option>
+          <option value="equipamento3">Equipamento 3</option>
         </select>
-        
-        <label for="motoristas">Motorista Responsáveis:</label>
-        <select id="motoristas" name="motoristas" multiple required>
-            <option value="motorista1">Motorista 1</option>
-            <option value="motorista2">Motorista 2</option>
-            <option value="motorista3">Motorista 3</option>
-            <!-- Adicione mais motorista conforme necessário -->
+
+        <label for="motoristas">Motoristas Responsáveis:</label>
+        <select
+          id="motoristas"
+          name="motoristas"
+          multiple
+          required
+          onchange="atualizarPrevisualizacao()"
+        >
+          <option value="motorista1">Motorista 1</option>
+          <option value="motorista2">Motorista 2</option>
+          <option value="motorista3">Motorista 3</option>
         </select>
 
         <button type="submit">Salvar Evento</button>
-        <button class="button" onclick="window.location.href='index.html'">Voltar</button>
-    </form>
-    
+        <button class="button" onclick="window.location.href='index.html'">
+          Voltar
+        </button>
+      </form>
 
+      <!-- Container de Pré-visualização -->
+      <div id="previsualizacaoContainer" class="previsualizacao-container">
+        <h2>Pré-visualização do Evento</h2>
+        <div id="previsualizacao"></div>
+      </div>
+    </div>
 
     <script>
-        document.getElementById('eventoForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio do formulário
+      document
+        .getElementById("eventoForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Impede o envio do formulário
 
-            const nome = document.getElementById('nome').value;
-            const local = document.getElementById('local').value;
-            const data = document.getElementById('data').value;
-            const hora = document.getElementById('hora').value;
-            const contratante = document.getElementById('contratante').value;
-            const tecnicos = Array.from(document.getElementById('tecnicos').selectedOptions).map(option => option.value);
-            const equipamentos = Array.from(document.getElementById('equipamentos').selectedOptions).map(option => option.value);
-            const motoristas = Array.from(document.getElementById('motoristas').selectedOptions).map(option => option.value);
+          const nome = document.getElementById("nome").value;
+          const local = document.getElementById("local").value;
+          const data = document.getElementById("data").value;
+          const contratante = document.getElementById("contratante").value;
+          const tecnicos = Array.from(
+            document.getElementById("tecnicos").selectedOptions
+          ).map((option) => option.text);
+          const equipamentos = Array.from(
+            document.getElementById("equipamentos").selectedOptions
+          ).map((option) => option.text);
+          const motoristas = Array.from(
+            document.getElementById("motoristas").selectedOptions
+          ).map((option) => option.text);
 
+          // Exibir os dados do evento no console (ou enviar para um backend)
+          console.log("Evento Adicionado:");
+          console.log("Nome: ", nome);
+          console.log("Local: ", local);
+          console.log("Data: ", data);
+          console.log("Contratante: ", contratante);
+          console.log("Técnicos: ", tecnicos);
+          console.log("Equipamentos: ", equipamentos);
+          console.log("Motoristas: ", motoristas);
 
-            // Exibir os dados do evento no console (ou enviar para um backend)
-            console.log("Evento Adicionado:");
-            console.log("Nome: ", nome);
-            console.log("Local: ", local);
-            console.log("Data: ", data);
-            console.log("Hora: ", hora);
-            console.log("Contratante: ", contratante);
-            console.log("Técnicos: ", tecnicos);
-            console.log("Equipamentos: ", equipamentos);
-            console.log("Motoristas: " , motoristas);
-
-            // Aqui você pode adicionar lógica para enviar os dados para um servidor ou armazená-los localmente
-
-            alert("Evento salvo com sucesso!");
+          alert("Evento salvo com sucesso!");
         });
+
+      // Função para atualizar a pré-visualização conforme os dados são inseridos
+      function atualizarPrevisualizacao() {
+        const nome = document.getElementById("nome").value;
+        const local = document.getElementById("local").value;
+        const data = document.getElementById("data").value;
+        const contratante = document.getElementById("contratante").value;
+        const tecnicos = Array.from(
+          document.getElementById("tecnicos").selectedOptions
+        )
+          .map((option) => option.text)
+          .join(", ");
+        const equipamentos = Array.from(
+          document.getElementById("equipamentos").selectedOptions
+        )
+          .map((option) => option.text)
+          .join(", ");
+        const motoristas = Array.from(
+          document.getElementById("motoristas").selectedOptions
+        )
+          .map((option) => option.text)
+          .join(", ");
+
+        const previsualizacao = `
+                    <p><strong>Nome do Evento:</strong> ${nome || "N/A"}</p>
+                    <p><strong>Local:</strong> ${local || "N/A"}</p>
+                    <p><strong>Data:</strong> ${data || "N/A"}</p>
+                    <p><strong>Contratante:</strong> ${contratante || "N/A"}</p>
+                    <p><strong>Técnicos:</strong> ${tecnicos || "N/A"}</p>
+                    <p><strong>Equipamentos:</strong> ${
+                      equipamentos || "N/A"
+                    }</p>
+                    <p><strong>Motoristas:</strong> ${motoristas || "N/A"}</p>
+                `;
+
+        document.getElementById("previsualizacao").innerHTML = previsualizacao;
+      }
     </script>
-</body>
+  </body>
 </html>

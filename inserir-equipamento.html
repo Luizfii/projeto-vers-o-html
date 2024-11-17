@@ -110,10 +110,10 @@
         <input type="date" id="dataCompra" name="dataCompra" required>
 
         <button type="button" onclick="adicionarEquipamento()">Salvar Equipamento</button>
-        <button class="button" onclick="window.location.href='index.html'">Voltar</button>
+        <button type="button" class="button" onclick="window.location.href='index.html'">Voltar</button>
     </form>
-    
 
+    <h2>Equipamentos Adicionados</h2>
     <table id="tabela-equipamentos">
         <thead>
             <tr>
@@ -129,9 +129,11 @@
     </table>
 
     <script>
-        let equipamento = [];
+        // Array para armazenar os equipamentos
+        let equipamentos = [];
         let contadorId = 1;
 
+        // Função para adicionar um novo equipamento
         function adicionarEquipamento() {
             const marca = document.getElementById("marca").value;
             const modelo = document.getElementById("modelo").value;
@@ -153,6 +155,7 @@
             }
         }
 
+        // Função para atualizar a tabela com os equipamentos
         function atualizarTabela() {
             const tabelaBody = document.getElementById("tabela-equipamentos-body");
             tabelaBody.innerHTML = "";
@@ -175,6 +178,7 @@
             });
         }
 
+        // Função para editar um equipamento
         function editarEquipamento(id) {
             const equipamento = equipamentos.find(eq => eq.id === id);
 
@@ -187,6 +191,7 @@
             }
         }
 
+        // Função para excluir um equipamento
         function excluirEquipamento(id) {
             equipamentos = equipamentos.filter(eq => eq.id !== id);
             atualizarTabela();

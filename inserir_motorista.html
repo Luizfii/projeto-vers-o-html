@@ -100,48 +100,121 @@
 </head>
 <body>
     <h1>Inserir Motorista</h1>
-    <form id="eventoForm">
+
+    <!-- Formulário para adicionar motoristas -->
+    <form id="motoristaForm">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+        <input type="text" id="nome" name="nome" required><br>
 
         <label for="cpf">CPF:</label>
-        <input type="numb" id="cpf" name="cpf" required>
+        <input type="text" id="cpf" name="cpf" required><br>
 
         <label for="data">Data de Nascimento:</label>
-        <input type="date" id="data" name="data" required>
+        <input type="date" id="data" name="data" required><br>
 
-        <label for="hora">Hora:</label>
-        <input type="time" id="hora" name="hora" required>
+        <label for="placaCaminhao">Placa do Caminhão:</label>
+        <input type="text" id="placaCaminhao" name="placaCaminhao" required><br>
 
-        <label for="placaCaminhao">Placa do caminhão:</label>
-        <input type="text" id="placaCaminhao" name="placaCaminhao" required>
-
-        <button type="button" onclick="adicionarMotorista()">Salvar Motorista</button>
+        <button type="button" onclick="adicionarMotorista()">Adicionar Motorista</button>
         <button class="button" onclick="window.location.href='index.html'">Voltar</button>
     </form>
-    
+
+    <!-- Tabela para exibir os motoristas -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Data de Nascimento</th>
+                <th>Placa do Caminhão</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-motoristas-body">
+        </tbody>
+    </table>
 
     <script>
-        document.getElementById('motoristaForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio do formulário
+        // Executa o código apenas após a página ser carregada
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicializa o array de motoristas
+            let motoristas = [];
+            let contadorId = 1;
 
-            const nome = document.getElementById('nome').value;
-            const cpf = document.getElementById('cpf').value;
-            const data = document.getElementById('data').value;
-            const hora = document.getElementById('hora').value;
-            const placaCaminhão = document.getElementById('placaCaminhao').value;
-            
-            // Exibir os dados do evento no console (ou enviar para um backend)
-            console.log("motorista Adicionado:");
-            console.log("Nome:", nome);
-            console.log("Cpf:", cpf);
-            console.log("Data:", data);
-            console.log("Hora:", hora);
-            console.log("placa do caminhão: ", placaCaminhao);
+            // Função para adicionar motorista
+            function adicionarMotorista() {
+                const nome = document.getElementById("nome").value;
+                const cpf = document.getElementById("cpf").value;
+                const dataNascimento = document.getElementById("data").value;
+                const placaCaminhao = document.getElementById("placaCaminhao").value;
 
-            // Aqui você pode adicionar lógica para enviar os dados para um servidor ou armazená-los localmente
+                if (nome && cpf && dataNascimento && placaCaminhao) {
+                    const motorista = {
+                        id: contadorId++,
+                        nome: nome,
+                        cpf: cpf,
+                        dataNascimento: dataNascimento,
+                        placaCaminhao: placaCaminhao
+                    };
 
-            alert("Motorista salvo com sucesso!");
+                    // Adiciona o motorista ao array
+                    motoristas.push(motorista);
+                    atualizarTabela();
+                    document.getElementById("motoristaForm").reset();
+                } else {
+                    alert("Por favor, preencha todos os campos.");
+                }
+            }
+
+            // Função para atualizar a tabela de motoristas
+            function atualizarTabela() {
+                const tabelaBody = document.getElementById("tabela-motoristas-body");
+                tabelaBody.innerHTML = "";
+
+                motoristas.forEach(motorista => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${motorista.id}</td>
+                        <td>${motorista.nome}</td>
+                        <td>${motorista.cpf}</td>
+                        <td>${motorista.dataNascimento}</td>
+                        <td>${motorista.placaCaminhao}</td>
+                        <td>
+                            <button class="btn-action" onclick="editarMotorista(${motorista.id})">Editar</button>
+                            <button class="btn-action" onclick="excluirMotorista(${motorista.id})">Excluir</button>
+                        </td>
+                    `;
+
+                    tabelaBody.appendChild(row);
+                });
+            }
+
+            // Função para editar motorista
+            function editarMotorista(id) {
+                const motorista = motoristas.find(eq => eq.id === id);
+
+                if (motorista) {
+                    document.getElementById("nome").value = motorista.nome;
+                    document.getElementById("cpf").value = motorista.cpf;
+                    document.getElementById("data").value = motorista.dataNascimento;
+                    document.getElementById("placaCaminhao").value = motorista.placaCaminhao;
+
+                    excluirMotorista(id); // Remove o motorista para re-adicionar com alterações
+                }
+            }
+
+            // Função para excluir motorista
+            function excluirMotorista(id) {
+                motoristas = motoristas.filter(eq => eq.id !== id);
+                atualizarTabela();
+            }
+
+            // Expondo funções globalmente
+            window.adicionarMotorista = adicionarMotorista;
+            window.editarMotorista = editarMotorista;
+            window.excluirMotorista = excluirMotorista;
         });
     </script>
 </body>
